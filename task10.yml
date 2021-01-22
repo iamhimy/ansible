@@ -1,0 +1,41 @@
+- hosts: 192.168.43.14
+  tasks:
+  - copy:
+          src : "/etc/yum.repos.d/docker.repo"
+          dest: "/etc/yum.repos.d/docker-ce.repo"
+  - command : "yum install docker-ce --nobest -y"
+
+  - service:
+          name: "docker"
+          state: started
+          enabled: yes
+
+  - pip :
+          name: "docker"        
+  - file:
+          state: directory
+          path: "/myweb"
+          
+  - copy:
+          dest: "/myweb/index.html"
+          content: "my ansible container and its web page"
+
+  - docker_container:
+          name: "myweb1"
+          image: "httpd"
+          state: "started"
+          exposed_ports:
+                  - "80"
+          ports:
+                  - "2514:80"
+          volumes:
+                  - "/myweb:/var/www/html/"
+          
+          
+
+
+
+
+
+
+
