@@ -1,0 +1,5 @@
+name : "httpd"
+state1: present
+state2: started
+src_file: "osfiles/osnamed.html"
+dest_file: "/var/www/html/"
