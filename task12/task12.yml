@@ -1,0 +1,37 @@
+- hosts: group_name_backend
+  gather_facts: false
+  tasks:
+  - package:
+          name: "httpd"
+          state: present
+
+  - copy:
+          dest: "/var/www/html/lb.php"
+          content: " LOAD BALANCED PAGE "
+  - package:
+          name : "php"
+          state: present
+  - service:
+          name: "httpd"
+          state: restarted
+          enabled: yes
+
+- hosts : group_name_loadbalancer
+  gather_facts: false
+  tasks :
+  - package :
+          name: "haproxy"
+          state : present
+
+  - template :
+          dest : "/etc/haproxy/haproxy.cfg"
+          src : "haproxy.cfg.j2"
+  - service :
+          name : "haproxy"
+          state : restarted
+
+
+
+
+
+

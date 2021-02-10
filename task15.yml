@@ -1,0 +1,7 @@
+- hosts: backend
+  roles:
+      - role : "myapache"
+- hosts: loadbalancer
+  roles:
+      - role : "mylb"
+

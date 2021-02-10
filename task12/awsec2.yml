@@ -1,0 +1,40 @@
+- hosts: localhost
+  gather_facts: false
+  vars_files:
+          - vars.yml
+  tasks:
+  - amazon.aws.ec2 :
+          count : "1"
+          region: "ap-south-1"
+          image: "ami-08e0ca9924195beba"
+          instance_type : t2.micro
+          vpc_subnet_id: "subnet-166e677e"
+          group_id: "sg-0fe709f47967b20c5"
+          key_name: "pass"
+          instance_tags:
+                    name : loadbalancer
+          state: present
+          aws_access_key: "{{access_key}}"
+          aws_secret_key: "{{secret_key}}"
+          wait: yes
+
+  - amazon.aws.ec2 :
+          count : "2"
+          region: "ap-south-1"
+          image: "ami-08e0ca9924195beba"
+          instance_type : t2.micro
+          vpc_subnet_id: "subnet-166e677e"
+          group_id: "sg-0fe709f47967b20c5"
+          key_name: "pass"
+          instance_tags:
+                     name: backend
+          state: present
+          aws_access_key: "{{access_key}}"
+          aws_secret_key: "{{secret_key}}"
+
+
+
+
+
+
+

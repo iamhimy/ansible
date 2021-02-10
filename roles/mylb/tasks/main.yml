@@ -1,0 +1,12 @@
+---
+# tasks file for mylb
+- package :
+        name : "{{ l }}"
+        state : present
+- template :
+        dest: "/etc/haproxy/haproxy.cfg"
+        src: "/wms/haproxy.cfg.j2"
+- service :
+        name: "{{ l }}"
+        state: restarted
+        enabled: yes 

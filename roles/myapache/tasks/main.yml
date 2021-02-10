@@ -1,0 +1,13 @@
+---
+# tasks file for myapache
+- package :
+        name : "{{p}}"
+        state : present
+- copy :
+        dest : "/var/www/html/my.html"
+        content : " a load balanced page on {{ ansible_hostname }} "
+- service :
+        name : "{{p}}"
+        state : restarted
+
+
